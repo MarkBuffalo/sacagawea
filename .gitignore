@@ -1,0 +1,12 @@
+shots/*.png
+webs.txt
+report.html
+hello.html
+virtualenv/
+venv/
+.idea/
+.DS_Store
+*.zip
+geckodriver.log
+__pycache__
+bin/
