@@ -3,7 +3,7 @@ import ipaddress
 import sys
 from contextlib import closing
 from selenium.common.exceptions import TimeoutException, InvalidSessionIdException, WebDriverException
-from print_methods import ct_print
+from modules.print_methods import ct_print
 
 class PortScan:
     def __init__(self):
