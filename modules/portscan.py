@@ -13,6 +13,8 @@ class PortScan:
             8080,
             8443
         ]
+        # At least 5 before moving on.
+        self.socket_timeout = 5
 
     @staticmethod
     def get_ip_range_from_cidr(cidr):
@@ -61,7 +63,7 @@ class PortScan:
         open_ports = []
         for port in self.common_web_port_list:
             with closing(socket.socket(socket.AF_INET, socket.SOCK_STREAM)) as sock:
-                sock.settimeout(3)
+                sock.settimeout(self.socket_timeout)
                 if sock.connect_ex((ip, port)) == 0:
                     sock.settimeout(None)
                     open_ports.append(port)
@@ -69,10 +71,9 @@ class PortScan:
             return open_ports
         return None
 
-    @staticmethod
-    def is_port_open(ip, port):
+    def is_port_open(self, ip, port):
         with closing(socket.socket(socket.AF_INET, socket.SOCK_STREAM)) as sock:
-            sock.settimeout(3)
+            sock.settimeout(self.socket_timeout)
             if sock.connect_ex((ip, port)) == 0:
                 sock.settimeout(None)
                 return True
