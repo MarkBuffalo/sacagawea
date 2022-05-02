@@ -4,6 +4,10 @@
 
 Sacagawea is a project for quickly taking screenshots of a large amount of websites automatically. This is an early beta that needs to be improved before it'll run fast enough.
 
+
+![Sacagawea in action](https://i.imgur.com/9g9VA1l.png)
+
+
 ## Why?
 
 Imagine you're on a red team engagement and there are hundreds, perhaps thousands of hosts. You have limited time to get a quick overview of the juiciest targets.
