@@ -1,5 +1,16 @@
 ![Painting of Sacagawea](https://i.imgur.com/gRRFm8n.jpg)
 
+# Table of Contents
+
+- [What is Sacagawea?](#what-is-sacagawea-)
+  * [Why?](#why-)
+- [Usage](#usage)
+  * [Inputfile](#inputfile)
+  * [CIDR Range](#cidr-range)
+  * [Web Driver Engine (Chrome or Firefox)](#web-driver-engine--chrome-or-firefox-)
+  * [Example output:](#example-output-)
+  * [Parameters](#parameters)
+
 # What is Sacagawea?
 
 Sacagawea is a project for quickly taking screenshots of a large amount of websites automatically. This is an early beta that needs to be improved before it'll run fast enough.
