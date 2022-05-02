@@ -71,6 +71,10 @@ Enter Sacagawea the Explorer. This script generates screenshots of each page, po
 
 You are then free to pick the most likely targets of opportunity.
 
+# Notes
+
+Currently, the geckodriver is busted. Use chrome. You'll have to specify `-b chrome`.
+
 # Installation
 
 ```
