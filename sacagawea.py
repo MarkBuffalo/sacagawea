@@ -4,13 +4,13 @@
 import argparse
 import sys
 import os
-from portscan import PortScan
+from modules.portscan import PortScan
 from queue import Queue
-from thread_handler import ThreadWorker
-from banner import Banner
-from print_methods import ct_print, colorize_bar_output
-from web_driver import WebDriver
-from report_output import ReportOutput
+from modules.thread_handler import ThreadWorker
+from modules.banner import Banner
+from modules.print_methods import ct_print, colorize_bar_output
+from modules.web_driver import WebDriver
+from modules.report_output import ReportOutput
 from tqdm import tqdm
 from colorama import Fore
 
