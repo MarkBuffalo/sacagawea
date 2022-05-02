@@ -38,7 +38,7 @@ class ReportOutput:
         with open("reports/templates/end.html", "r") as end:
             end_html = end.read()
 
-        print(f"here is our figure: {figure_html}")
+        #print(f"here is our figure: {figure_html}")
 
         self.write_report(start_html, end_html, figure_html)
 
