@@ -122,4 +122,5 @@ if __name__ == "__main__":
         sacagawea.explore()
     except KeyboardInterrupt:
         sacagawea.driver.firefox_driver.close()
+        sacagawea.driver.chrome_driver.close()
         sys.exit(0)

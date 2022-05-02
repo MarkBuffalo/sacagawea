@@ -22,7 +22,9 @@ class WebDriver:
 
         self.firefox_driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()),
                                                 options=self.firefox_options)
-        #self.chrome_driver = webdriver.Firefox(service=ChromeService(ChromeDriverManager().install()), options=self.chrome_options)
+
+        self.chrome_driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()),
+                                               options=self.chrome_options)
         self.current_browser = "firefox"
 
     @staticmethod
@@ -35,5 +37,10 @@ class WebDriver:
         return url.split("/")[2]
 
     def take_screenshot(self, url):
-        self.firefox_driver.get(url)
-        self.firefox_driver.save_screenshot(f"shots/{self.get_domain_from_url(url).replace(':', '_')}.png")
+        if self.current_browser == "firefox":
+            self.firefox_driver.get(url)
+            self.firefox_driver.save_screenshot(f"shots/{self.get_domain_from_url(url).replace(':', '_')}.png")
+        else:
+            self.chrome_driver.get(url)
+            self.chrome_driver.save_screenshot(f"shots/{self.get_domain_from_url(url).replace(':', '_')}.png")
+
