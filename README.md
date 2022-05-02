@@ -28,7 +28,7 @@ Your input file must be formatted like so:
  https://website.com:8080
  http://website.com:8080
  ```
-## Example Use
+## CIDR Range
 
  ```
 $ ./sacagawea.py -c 10.1.0.0/16
@@ -39,7 +39,35 @@ $ ./sacagawea.py -c 10.1.0.0/16
  ```
 $ ./sacagawea.py -c 10.1.0.0/16 -i more_hosts.txt
  ```
- 
+
+```
+         ,
+        /:\
+        >:<  This project is dedicated to
+        >:<  Missing and Murdered Indigenous Women
+        >:<  
+   ,,,,,\:/  May you find your way home...
+  #########
+//////\\\\ \
+//  _   _  \\  .---.
+\(  O _ O  )/  \___  ,-. ,-. ,-. ,-. ,-. . , , ,-. ,-.
+/\\=  _\ =//\      \ ,-| |   ,-| | | ,-| |/|/  |-' ,-|
+\\/\ --- /\//  `---' `-^ `-' `-^ `-| `-^ ' '   `-' `-^
+//\ '---' /\\                     ,|
+\//       \\/                     `'
+/\\       //\\
+\\/       \//
+ #         #
+ "         "
+
+[!] Loaded target list from 10.1.0.0/16
+[!] 10.1.0.0/16 was parsed into 65536 host(s).
+[?] Strange error when attempting to scan 10.1.1.1. You may need to try again.                                             
+[Sacagawea Progress:   8%] █▎              | Host: 5503 of 65536 | Elapsed: 05:36 | Remaining: 30:03 | Rate: 33.28 sites/s 
+
+```
+
+
 If you choose a CIDR range, currently it defaults to checking 80, 443, 8080 and 8443. If you know what you're looking for and want to speed things up, create your own input file with ports and protocols.
 
 ## Parameters
