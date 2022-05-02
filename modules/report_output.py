@@ -7,7 +7,7 @@ from datetime import datetime
 class ReportOutput:
     def __init__(self):
         self.img_dict = defaultdict(list)
-        self.figure_caption = '<figure class="figure"><figcaption class="figure-caption">$:%</figcaption><img src="replacemenow" class="figure-img img-fluid rounded" alt="A screeshot of the host $ and accompanying port, %"></figure>'
+        self.figure_caption = '<figure class="figure"><figcaption class="figure-caption" class="%">$:%</figcaption><img src="replacemenow" class="figure-img img-fluid rounded" alt="A screeshot of the host $ and accompanying port, %"></figure>'
 
     @staticmethod
     def get_host_info(image_name):

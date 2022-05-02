@@ -13,7 +13,6 @@ class ThreadWorker(Thread):
         self.queue = kwargs.get("queue")
         self.class_name = kwargs.get("class_name")
         self.function_name = kwargs.get("function_name")
-        # self.progress_bar = kwargs.get("progress_bar")
         self.kwargs = kwargs
 
     def run(self):
