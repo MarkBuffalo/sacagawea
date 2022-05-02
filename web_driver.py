@@ -7,6 +7,7 @@ from selenium.webdriver.firefox.service import Service as FirefoxService
 
 from webdriver_manager.firefox import GeckoDriverManager
 from webdriver_manager.chrome import ChromeDriverManager
+import time
 
 
 class WebDriver:
@@ -36,4 +37,6 @@ class WebDriver:
     def take_screenshot(self, url):
         self.firefox_driver.get(url)
         self.firefox_driver.save_screenshot(f"shots/{self.get_domain_from_url(url).replace(':', '_')}.png")
+        # So it finishes saving before freaking out.
+        time.sleep(5)
         self.firefox_driver.close()

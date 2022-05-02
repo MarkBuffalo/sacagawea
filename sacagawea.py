@@ -23,7 +23,7 @@ class Sacagawea:
 
         self.port_scanner = PortScan()
         self.queue = Queue(maxsize=0)
-        self.queue_threads = 75
+        self.queue_threads = 100
         self.report = ReportOutput()
 
         # Command Line Arguments
