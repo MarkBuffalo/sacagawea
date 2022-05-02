@@ -124,6 +124,7 @@ class Sacagawea:
         self.driver.firefox_driver.close()
         self.progress_bar.close()
         self.reporting.load_report_info()
+        ct_print("[!] Finished writing report!")
 
 
 if __name__ == "__main__":

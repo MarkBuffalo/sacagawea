@@ -44,8 +44,9 @@ class PortScan:
                     else:
                         prefix = "http://"
                     driver.take_screenshot(f"{prefix}{ip}:{self.current_port}")
-            #ct_print(f"[!] Finished checking {ip}...")
+
             progress_bar.update(1)
+
         except socket.herror:
             return False
         except socket.gaierror:

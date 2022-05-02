@@ -3,6 +3,7 @@ from collections import defaultdict
 from pathlib import Path
 from datetime import datetime
 
+
 class ReportOutput:
     def __init__(self):
         self.img_dict = defaultdict(list)
@@ -19,18 +20,14 @@ class ReportOutput:
 
         for img in images:
             file_name = self.get_host_info(img)
-            #host = file_name.split("_")[0]
-            #port = file_name.split("_")[1]
-
-            # temporary while testing.
-            host = file_name
-            port = 8080
+            host = file_name.split("_")[0]
+            port = file_name.split("_")[1]
 
             self.img_dict[host].append(port)
             # Need to fix this to include hosts and ports.
             figure_html += self.figure_caption.replace(
                 "replacemenow",
-                f"../{img}").replace("$", file_name).replace("%", str(port)) + "\n"
+                f"../{img}").replace("$", host).replace("%", str(port)) + "\n"
 
         start_html = ""
         with open("reports/templates/start.html", "r") as start:
@@ -39,8 +36,6 @@ class ReportOutput:
         end_html = ""
         with open("reports/templates/end.html", "r") as end:
             end_html = end.read()
-
-        #print(f"here is our figure: {figure_html}")
 
         self.write_report(start_html, end_html, figure_html)
 
