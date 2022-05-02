@@ -2,7 +2,7 @@ import socket
 import ipaddress
 import sys
 from contextlib import closing
-from selenium.common.exceptions import TimeoutException, InvalidSessionIdException
+from selenium.common.exceptions import TimeoutException, InvalidSessionIdException, WebDriverException
 from print_methods import ct_print
 
 class PortScan:
@@ -54,6 +54,8 @@ class PortScan:
         except InvalidSessionIdException:
             ct_print(f"[?] Strange error when attempting to scan {ip}. You may need to try again.")
             return False
+        except WebDriverException:
+            ct_print(f"[?] Web Driver blew up while attempting to connect to {ip}. You should manually check this host.")
 
     def get_open_ports(self, ip):
         open_ports = []
