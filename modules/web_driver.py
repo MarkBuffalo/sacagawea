@@ -7,11 +7,10 @@ from selenium.webdriver.firefox.service import Service as FirefoxService
 
 from webdriver_manager.firefox import GeckoDriverManager
 from webdriver_manager.chrome import ChromeDriverManager
-import time
 
 
 class WebDriver:
-    def __init__(self):
+    def __init__(self, **kwargs):
         self.chrome_options = ChromeOptions()
         self.chrome_options.ignore_certificate_errors = True
         self.chrome_options.headless = True
@@ -20,12 +19,7 @@ class WebDriver:
         self.firefox_options.headless = True
         self.firefox_options.accept_insecure_certs = True
 
-        self.firefox_driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()),
-                                                options=self.firefox_options)
-
-        self.chrome_driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()),
-                                               options=self.chrome_options)
-        self.current_browser = "firefox"
+        self.browser = kwargs.get("browser")
 
     @staticmethod
     def get_domain_from_url(url):
@@ -37,10 +31,15 @@ class WebDriver:
         return url.split("/")[2]
 
     def take_screenshot(self, url):
-        if self.current_browser == "firefox":
-            self.firefox_driver.get(url)
-            self.firefox_driver.save_screenshot(f"shots/{self.get_domain_from_url(url).replace(':', '_')}.png")
+        if self.browser == "firefox":
+            self.fire_browser_event(url, webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()),
+                                                           options=self.firefox_options))
         else:
-            self.chrome_driver.get(url)
-            self.chrome_driver.save_screenshot(f"shots/{self.get_domain_from_url(url).replace(':', '_')}.png")
+            self.fire_browser_event(url, webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()),
+                                                          options=self.chrome_options))
 
+    def fire_browser_event(self, url, driver):
+        driver.set_window_size(1920, 1080)
+        driver.get(url)
+        driver.refresh()
+        driver.save_screenshot(f"shots/{self.get_domain_from_url(url).replace(':', '_')}.png")

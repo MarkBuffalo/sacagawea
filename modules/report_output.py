@@ -5,8 +5,9 @@ from datetime import datetime
 
 
 class ReportOutput:
-    def __init__(self):
+    def __init__(self, **kwargs):
         self.img_dict = defaultdict(list)
+        self.report_type = kwargs.get("scan_mode")
         self.figure_caption = '<figure class="figure"><figcaption class="figure-caption" class="p%">$:%</figcaption><img src="replacemenow" class="figure-img img-fluid rounded" alt="A screeshot of the host $ and accompanying port, %"></figure>'
 
     @staticmethod
@@ -20,8 +21,16 @@ class ReportOutput:
 
         for img in images:
             file_name = self.get_host_info(img)
-            host = file_name.split("_")[0]
-            port = file_name.split("_")[1]
+
+            host = ""
+            port = 0
+
+            if self.report_type == "single":
+                host = file_name
+                port = ""
+            if "_" in file_name:
+                host = file_name.split("_")[0]
+                port = file_name.split("_")[1]
 
             self.img_dict[host].append(port)
             # Need to fix this to include hosts and ports.

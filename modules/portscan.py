@@ -27,23 +27,28 @@ class PortScan:
         driver = kwargs.get("driver")
         progress_bar = kwargs.get("progress_bar")
 
+        ct_print(f"[*] Checking {ip}...")
         try:
-            open_ports = self.get_open_ports(ip)
-            if open_ports:
-                # This needs to be changed soon.
-                # It needs to test if a TLS connection is available before assuming based on port numbers.
-                for port in open_ports:
-                    self.current_port = port
-                    prefix = ""
-                    if self.current_port == 80:
-                        prefix = "http://"
-                    elif self.current_port == 443:
-                        prefix = "https://"
-                    elif "443" in str(self.current_port):
-                        prefix = "https://"
-                    else:
-                        prefix = "http://"
-                    driver.take_screenshot(f"{prefix}{ip}:{self.current_port}")
+            if kwargs.get("scan_mode") == "single":
+                driver.take_screenshot(ip)
+
+            else:
+                open_ports = self.get_open_ports(ip)
+                if open_ports:
+                    # This needs to be changed soon.
+                    # It needs to test if a TLS connection is available before assuming based on port numbers.
+                    for port in open_ports:
+                        self.current_port = port
+                        prefix = ""
+                        if self.current_port == 80:
+                            prefix = "http://"
+                        elif self.current_port == 443:
+                            prefix = "https://"
+                        elif "443" in str(self.current_port):
+                            prefix = "https://"
+                        else:
+                            prefix = "http://"
+                        driver.take_screenshot(f"{prefix}{ip}:{self.current_port}")
 
             progress_bar.update(1)
 
@@ -57,12 +62,14 @@ class PortScan:
             return False
         except TimeoutException:
             return False
-        except InvalidSessionIdException:
-            ct_print(f"[?] Strange error when attempting to scan {ip}:{self.current_port}. You may need to try again.")
+        except InvalidSessionIdException as e:
+            ct_print(f"[?] Strange error when attempting to scan {ip}: {str(e)}.")
             return False
-        except WebDriverException:
-            ct_print(f"[?] Web Driver died when trying to connect to {ip}:{self.current_port}. "
-                     f"You should manually check this host:port.")
+        except WebDriverException as e:
+            ct_print(f"[?] Web Driver died when trying to connect to {ip}: {str(e)}")
+        except KeyboardInterrupt:
+            ct_print(f"[:-(] Bye")
+            sys.exit(0)
 
     def get_open_ports(self, ip):
         open_ports = []

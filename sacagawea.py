@@ -37,11 +37,10 @@ class Sacagawea:
                                  help="Regenerate the report instead of running another long-winded scan.")
         self.parser.add_argument('-t', '--timeout', help="The timeout (in seconds) before giving up on a host.")
         self.args = self.parser.parse_args()
-
-        self.current_browser = "firefox"
-        self.driver = WebDriver()
         self.input_file = ""
         self.target_list = []
+        self.reporting = None
+        self.driver = None
 
         # Progress bar.
         self.progress_bar = None
@@ -50,10 +49,12 @@ class Sacagawea:
         self.bar = f"{Fore.LIGHTGREEN_EX}{{bar}}"
         self.l_bar = colorize_bar_output("[{desc}: {percentage:3.0f}%] ")
 
-        # Reporting functionality.
-        self.reporting = ReportOutput()
-
     def run_actions_threaded(self, **kwargs):
+        # No need to create X threads if you have less hosts to check.
+        if len(self.target_list) < self.queue_threads:
+            self.queue_threads = len(self.target_list)
+
+        ct_print(f"[!] Starting with {self.queue_threads} thread(s).")
         for i in range(self.queue_threads):
             """This takes the queue item, then the SiteChecker class, and the "examine_domain" function within the
             SiteChecker class, followed by the examine_domain() function with the progress bar and arguments."""
@@ -71,8 +72,8 @@ class Sacagawea:
         queue = Queue(maxsize=0)
         try:
             with open(self.input_file, "r") as f:
-                self.target_list.extend(f.read().splitlines())
-
+                print("we opened the file")
+                self.target_list = f.read().splitlines()
                 for target in self.target_list:
                     queue.put(target.rstrip())
         except FileNotFoundError:
@@ -100,28 +101,41 @@ class Sacagawea:
             ct_print(f"[!] {self.args.cidr} was parsed into {self.queue.qsize()} host(s).")
 
         if self.args.inputfile:
+            self.input_file = self.args.inputfile
             self.queue = self.load_target_list()
             ct_print(f"[!] Loaded target list from {self.args.inputfile}")
-            ct_print(f"[!] {self.args.cidr} was parsed into {self.queue.qsize()} host(s).")
 
-        # Which web driver are we using? Firefox' GeckoDriver is default.
         if self.args.browser == "chrome":
-            self.current_browser = "chrome"
+            self.driver = WebDriver(browser="chrome")
+
+        else:
+            self.driver = WebDriver(browser="firefox")
 
         # Check hosts. We want to give the user the flexibility to choose both the CIDR range and from a list of hosts,
         # so we'll use self.check_hosts() after we've gone through the motions of loading the self.target_list.
         self.check_hosts()
 
     def check_hosts(self):
+
         self.progress_bar = tqdm(total=self.queue.qsize(), file=sys.stdout, unit=' sites',
                                  bar_format=f"{self.l_bar}{self.bar}{self.r_bar}", dynamic_ncols=True,
                                  desc="Sacagawea Progress", leave=False)
 
-        self.run_actions_threaded(queue=self.queue, class_name=self.port_scanner,
-                                  driver=self.driver, function_name="check_site", progress_bar=self.progress_bar)
+        # We separate these so you can run two separate scans. Wordlists and CIDR.
+        if self.args.inputfile:
+            # Reporting functionality.
+            self.reporting = ReportOutput(scan_mode="single")
+
+            self.run_actions_threaded(queue=self.queue, class_name=self.port_scanner,
+                                      driver=self.driver, function_name="check_site",
+                                      progress_bar=self.progress_bar, scan_mode="single")
+
+        if self.args.cidr:
+            self.reporting = ReportOutput()
+            self.run_actions_threaded(queue=self.queue, class_name=self.port_scanner,
+                                      driver=self.driver, function_name="check_site", progress_bar=self.progress_bar)
 
         # We're done. Let's close stuff.
-        self.driver.firefox_driver.close()
         self.progress_bar.close()
         self.reporting.load_report_info()
         ct_print("[!] Finished writing report!")
@@ -132,6 +146,4 @@ if __name__ == "__main__":
     try:
         sacagawea.explore()
     except KeyboardInterrupt:
-        sacagawea.driver.firefox_driver.close()
-        sacagawea.driver.chrome_driver.close()
         sys.exit(0)
