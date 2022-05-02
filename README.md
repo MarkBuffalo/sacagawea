@@ -40,7 +40,7 @@ $ ./sacagawea.py -c 10.1.0.0/16
 $ ./sacagawea.py -c 10.1.0.0/16 -i more_hosts.txt
  ```
  
- Example output:
+## Example output:
 
 ```
          ,
