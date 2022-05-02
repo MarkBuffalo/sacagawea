@@ -5,6 +5,7 @@ from contextlib import closing
 from selenium.common.exceptions import TimeoutException, InvalidSessionIdException, WebDriverException
 from modules.print_methods import ct_print
 
+
 class PortScan:
     def __init__(self):
         self.common_web_port_list = [
@@ -15,6 +16,7 @@ class PortScan:
         ]
         # At least 5 before moving on.
         self.socket_timeout = 5
+        self.current_port = 0
 
     @staticmethod
     def get_ip_range_from_cidr(cidr):
@@ -31,16 +33,17 @@ class PortScan:
                 # This needs to be changed soon.
                 # It needs to test if a TLS connection is available before assuming based on port numbers.
                 for port in open_ports:
+                    self.current_port = port
                     prefix = ""
-                    if port == 80:
+                    if self.current_port == 80:
                         prefix = "http://"
-                    elif port == 443:
+                    elif self.current_port == 443:
                         prefix = "https://"
-                    elif "443" in str(port):
+                    elif "443" in str(self.current_port):
                         prefix = "https://"
                     else:
                         prefix = "http://"
-                    driver.take_screenshot(f"{prefix}{ip}:{port}")
+                    driver.take_screenshot(f"{prefix}{ip}:{self.current_port}")
             #ct_print(f"[!] Finished checking {ip}...")
             progress_bar.update(1)
         except socket.herror:
@@ -54,10 +57,11 @@ class PortScan:
         except TimeoutException:
             return False
         except InvalidSessionIdException:
-            ct_print(f"[?] Strange error when attempting to scan {ip}. You may need to try again.")
+            ct_print(f"[?] Strange error when attempting to scan {ip}:{self.current_port}. You may need to try again.")
             return False
         except WebDriverException:
-            ct_print(f"[?] Web Driver blew up while attempting to connect to {ip}. You should manually check this host.")
+            ct_print(f"[?] Web Driver died when trying to connect to {ip}:{self.current_port}. "
+                     f"You should manually check this host:port.")
 
     def get_open_ports(self, ip):
         open_ports = []
