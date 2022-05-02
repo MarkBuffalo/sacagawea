@@ -31,10 +31,16 @@ Your input file must be formatted like so:
 ## Example Use
 
  ```
-$ ./Sacagawea.py -c 10.1.0.0/16
+$ ./sacagawea.py -c 10.1.0.0/16
  ```
-
-If you choose a CIDR range, currently it defaults to checking 80, 443, 8080 and 8443.
+ 
+ You can even combine input files with CIDR ranges:
+ 
+ ```
+$ ./sacagawea.py -c 10.1.0.0/16 -i more_hosts.txt
+ ```
+ 
+If you choose a CIDR range, currently it defaults to checking 80, 443, 8080 and 8443. If you know what you're looking for and want to speed things up, create your own input file with ports and protocols.
 
 ## Parameters
 
