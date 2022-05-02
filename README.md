@@ -71,6 +71,12 @@ Enter Sacagawea the Explorer. This script generates screenshots of each page, po
 
 You are then free to pick the most likely targets of opportunity.
 
+# Installation
+
+```
+pip3 install -r requirements.txt
+```
+
 # Usage
 
 ## Inputfile
