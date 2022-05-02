@@ -110,6 +110,9 @@ class Sacagawea:
 
         self.run_actions_threaded(queue=self.queue, class_name=self.port_scanner,
                                   driver=self.driver, function_name="check_site", progress_bar=self.progress_bar)
+
+        # We're done. Let's close stuff.
+        self.driver.firefox_driver.close()
         self.progress_bar.close()
 
 
@@ -118,4 +121,5 @@ if __name__ == "__main__":
     try:
         sacagawea.explore()
     except KeyboardInterrupt:
+        sacagawea.driver.firefox_driver.close()
         sys.exit(0)

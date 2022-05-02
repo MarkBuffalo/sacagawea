@@ -37,6 +37,3 @@ class WebDriver:
     def take_screenshot(self, url):
         self.firefox_driver.get(url)
         self.firefox_driver.save_screenshot(f"shots/{self.get_domain_from_url(url).replace(':', '_')}.png")
-        # So it finishes saving before freaking out.
-        time.sleep(5)
-        self.firefox_driver.close()
