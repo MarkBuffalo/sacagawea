@@ -1,0 +1,35 @@
+body
+{
+font-family: 'Roboto Serif', serif;
+}
+
+.navbar-brand
+{
+font-family: 'Roboto Serif', serif;
+color: #6232a8;
+}
+.navbar, .dropdown-menu
+{
+font-family: 'Roboto Condensed', sans-serif;
+color: #ffffff;
+background-color: #6232a8;
+}
+.dropdown-menu a:hover
+{
+color: #6232a8;
+}
+
+
+.navbar a
+{
+color: #ffffff;
+}
+.navbar a:hover{
+color: #d0b0ff;
+}
+
+.figure-caption{
+color: #6232a8;
+font-weight: bold;
+font-size: 14pt;
+}

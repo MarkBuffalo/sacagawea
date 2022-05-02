@@ -24,7 +24,6 @@ class Sacagawea:
         self.port_scanner = PortScan()
         self.queue = Queue(maxsize=0)
         self.queue_threads = 100
-        self.report = ReportOutput()
 
         # Command Line Arguments
         self.parser = argparse.ArgumentParser(description='Sacagawea The Explorer')
@@ -36,6 +35,7 @@ class Sacagawea:
         self.parser.add_argument('-r', '--report',
                                  action="store_true",
                                  help="Regenerate the report instead of running another long-winded scan.")
+        self.parser.add_argument('-t', '--timeout', help="The timeout (in seconds) before giving up on a host.")
         self.args = self.parser.parse_args()
 
         self.current_browser = "firefox"
@@ -43,11 +43,15 @@ class Sacagawea:
         self.input_file = ""
         self.target_list = []
 
+        # Progress bar.
         self.progress_bar = None
         self.r_bar = colorize_bar_output("| Host: {n_fmt} of {total_fmt} | Elapsed: {elapsed} | Remaining: "
                                          "{remaining} | Rate: {rate_fmt}{postfix} ")
         self.bar = f"{Fore.LIGHTGREEN_EX}{{bar}}"
         self.l_bar = colorize_bar_output("[{desc}: {percentage:3.0f}%] ")
+
+        # Reporting functionality.
+        self.reporting = ReportOutput()
 
     def run_actions_threaded(self, **kwargs):
         for i in range(self.queue_threads):
@@ -72,12 +76,17 @@ class Sacagawea:
                 for target in self.target_list:
                     queue.put(target.rstrip())
         except FileNotFoundError:
-            print(f"[?] File not found: {self.input_file}")
+            ct_print(f"[?] File not found: {self.input_file}")
         except Exception as e:
-            print(f"[?] There was a problem opening [{self.input_file}]: Error message:[{str(e)}]")
+            ct_print(f"[?] There was a problem opening [{self.input_file}]: Error message:[{str(e)}]")
         return queue
 
     def explore(self):
+        if self.args.report:
+            ct_print("[!] Writing report to file...")
+            self.reporting.load_report_info()
+            sys.exit(0)
+
         if not self.args.cidr and not self.args.inputfile:
             self.parser.print_help()
             sys.exit(0)
@@ -114,6 +123,7 @@ class Sacagawea:
         # We're done. Let's close stuff.
         self.driver.firefox_driver.close()
         self.progress_bar.close()
+        self.reporting.load_report_info()
 
 
 if __name__ == "__main__":
