@@ -5,7 +5,7 @@
 Sacagawea is a project for quickly taking screenshots of a large amount of websites automatically. This is an early beta that needs to be improved before it'll run fast enough.
 
 
-![Sacagawea in action](https://i.imgur.com/9g9VA1l.png)
+![Sacagawea in action](https://i.imgur.com/qj8S5uK.png)
 
 
 ## Why?
