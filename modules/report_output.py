@@ -28,7 +28,9 @@ class ReportOutput:
 
             self.img_dict[host].append(port)
             # Need to fix this to include hosts and ports.
-            figure_html += self.figure_caption.replace("replacemenow", f"../{img}").replace("$", file_name).replace("%", str(port))
+            figure_html += self.figure_caption.replace(
+                "replacemenow",
+                f"../{img}").replace("$", file_name).replace("%", str(port)) + "\n"
 
         start_html = ""
         with open("reports/templates/start.html", "r") as start:
