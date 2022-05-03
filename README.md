@@ -1,3 +1,5 @@
+# Table of Contents
+
 - [What is Sacagawea?](#what-is-sacagawea-)
   * [Command Line Interface (CLI)](#command-line-interface--cli-)
   * [Report Results (html/css/js)](#report-results--html-css-js-)
