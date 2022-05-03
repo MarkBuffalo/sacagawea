@@ -22,7 +22,7 @@ class ReportOutput:
         for img in images:
             file_name = self.get_host_info(img)
 
-            host = ""
+            host = file_name
             port = 0
 
             if self.report_type == "single":
@@ -34,9 +34,15 @@ class ReportOutput:
 
             self.img_dict[host].append(port)
             # Need to fix this to include hosts and ports.
-            figure_html += self.figure_caption.replace(
-                "replacemenow",
-                f"../{img}").replace("$", host).replace("%", str(port)) + "\n"
+
+            if port == 0:
+                figure_html += self.figure_caption.replace(
+                    "replacemenow",
+                    f"../{img}").replace("$", host).replace("%", "") + "\n"
+            else:
+                figure_html += self.figure_caption.replace(
+                    "replacemenow",
+                    f"../{img}").replace("$", host).replace("%", str(port)) + "\n"
 
         start_html = ""
         with open("reports/templates/start.html", "r") as start:

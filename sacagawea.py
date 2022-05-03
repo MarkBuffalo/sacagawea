@@ -81,6 +81,7 @@ class Sacagawea:
 
     def explore(self):
         if self.args.report:
+            self.reporting = ReportOutput(report_type="single")
             ct_print("[!] Writing report to file...")
             self.reporting.load_report_info()
             sys.exit(0)
