@@ -1,3 +1,15 @@
+- [What is Sacagawea?](#what-is-sacagawea-)
+  * [Command Line Interface (CLI)](#command-line-interface--cli-)
+  * [Report Results (html/css/js)](#report-results--html-css-js-)
+  * [Why?](#why-)
+- [Notes](#notes)
+- [Installation](#installation)
+- [Usage](#usage)
+  * [Inputfile](#inputfile)
+  * [CIDR Range](#cidr-range)
+  * [Web Driver Engine Selection](#web-driver-engine-selection)
+  * [Parameters](#parameters)****
+
 # What is Sacagawea?
 
 ## Command Line Interface (CLI)
