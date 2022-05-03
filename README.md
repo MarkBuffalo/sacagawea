@@ -71,11 +71,12 @@ If you choose a CIDR range, currently it defaults to checking 80, 443, 8080 and 
 
 ## Web Driver Engine Selection
 
-You can use either Chrome or Firefox. Firefox is the default web driver, so if you want to use chrome you can choose like so:
+You can use either Chrome or Firefox. Chrome is the default web driver, so if you want to use firefox you can choose like so:
  
  ```
-$ ./sacagawea.py -c 10.1.0.0/16 -b chrome
+$ ./sacagawea.py -c 10.1.0.0/16 -b firefox
  ```
+ However, we recommend chrome as GeckoDriver doesn't work very well.
 
 ## Parameters
 
