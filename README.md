@@ -1,18 +1,15 @@
 # What is Sacagawea?
 
+## Command Line Interface (CLI)
+
 ![Sacagawea command line interface in action](https://i.imgur.com/0fxIHTo.png)
 
-![Sacagawea report results](https://i.imgur.com/0fxIHTo.png)
+## Report Results (html/css/js)
 
-https://i.imgur.com/molg6my.png
-
+![Sacagawea report results](https://i.imgur.com/molg6my.png)
 
 
 Sacagawea is a project for quickly taking screenshots of a large amount of websites automatically. This is an early beta that needs to be improved before it'll run fast enough.
-
-
-![Sacagawea in action](https://i.imgur.com/qj8S5uK.png)
-
 
 ## Why?
 
