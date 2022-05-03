@@ -13,6 +13,7 @@ from modules.web_driver import WebDriver
 from modules.report_output import ReportOutput
 from tqdm import tqdm
 from colorama import Fore
+from zipfile import BadZipFile
 
 
 class Sacagawea:
@@ -151,3 +152,5 @@ if __name__ == "__main__":
         sacagawea.explore()
     except KeyboardInterrupt:
         sys.exit(0)
+    except BadZipFile:
+        ct_print("[?] Weird error with Web driver. You might need to restart the program, but it may work anyway.")
