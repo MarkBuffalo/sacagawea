@@ -10,7 +10,7 @@
   * [Inputfile](#inputfile)
   * [CIDR Range](#cidr-range)
   * [Web Driver Engine Selection](#web-driver-engine-selection)
-  * [Parameters](#parameters)****
+  * [Parameters](#parameters)
 
 # What is Sacagawea?
 
