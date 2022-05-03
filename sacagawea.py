@@ -56,8 +56,6 @@ class Sacagawea:
 
         ct_print(f"[!] Starting with {self.queue_threads} thread(s).")
         for i in range(self.queue_threads):
-            """This takes the queue item, then the SiteChecker class, and the "examine_domain" function within the
-            SiteChecker class, followed by the examine_domain() function with the progress bar and arguments."""
             worker = ThreadWorker(**kwargs)
             worker.daemon = True
             worker.start()
