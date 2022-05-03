@@ -66,40 +66,10 @@ You can use either Chrome or Firefox. Firefox is the default web driver, so if y
 $ ./sacagawea.py -c 10.1.0.0/16 -b chrome
  ```
 
- 
- 
-## Example output:
-
-```
-         ,
-        /:\
-        >:<  This project is dedicated to
-        >:<  Missing and Murdered Indigenous Women
-        >:<  
-   ,,,,,\:/  May you find your way home...
-  #########
-//////\\\\ \
-//  _   _  \\  .---.
-\(  O _ O  )/  \___  ,-. ,-. ,-. ,-. ,-. . , , ,-. ,-.
-/\\=  _\ =//\      \ ,-| |   ,-| | | ,-| |/|/  |-' ,-|
-\\/\ --- /\//  `---' `-^ `-' `-^ `-| `-^ ' '   `-' `-^
-//\ '---' /\\                     ,|
-\//       \\/                     `'
-/\\       //\\
-\\/       \//
- #         #
- "         "
-
-[!] Loaded target list from 10.1.0.0/16
-[!] 10.1.0.0/16 was parsed into 65536 host(s).
-[Sacagawea Progress:   8%] █▎    | Host: 5503 of 65536 | Elapsed: 05:36 | Remaining: 30:03 | Rate: 33.28 sites/s 
-
-```
-
 ## Parameters
 
 ```
-usage: sacagawea.py [-h] [-i INPUTFILE] [-b BROWSER] [-c CIDR] [-r]
+usage: sacagawea.py [-h] [-i INPUTFILE] [-b BROWSER] [-c CIDR] [-r] [-t TIMEOUT]
 
 Sacagawea The Explorer
 
@@ -111,4 +81,6 @@ optional arguments:
                         The browser driver to use. e.g.: firefox/chrome. Default is Firefox.
   -c CIDR, --cidr CIDR  CIDR Range to use in lieu of --inputfile.
   -r, --report          Regenerate the report instead of running another long-winded scan.
+  -t TIMEOUT, --timeout TIMEOUT
+                        The timeout (in seconds) before giving up on a host.
  ```
