@@ -70,7 +70,6 @@ class Sacagawea:
         queue = Queue(maxsize=0)
         try:
             with open(self.input_file, "r") as f:
-                print("we opened the file")
                 self.target_list = f.read().splitlines()
                 for target in self.target_list:
                     queue.put(target.rstrip())
@@ -104,10 +103,16 @@ class Sacagawea:
             ct_print(f"[!] Loaded target list from {self.args.inputfile}")
 
         if self.args.browser == "chrome":
+            ct_print("[!] Using Chrome Web Driver")
             self.driver = WebDriver(browser="chrome")
 
-        else:
+        elif self.args.browser == "firefox":
+            ct_print("[!] Using Firefox Web Driver")
             self.driver = WebDriver(browser="firefox")
+
+        else:
+            ct_print("[!] Using Chrome Web Driver")
+            self.driver = WebDriver(browser="chrome")
 
         # Check hosts. We want to give the user the flexibility to choose both the CIDR range and from a list of hosts,
         # so we'll use self.check_hosts() after we've gone through the motions of loading the self.target_list.
